@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import BookCard from "./components/BookCard";
 import NewButton from "./components/NewButton";
 import Modal from "./components/Modal";
 import LoanManager from "./components/LoanManager";
+import BookDetails from "./components/BookDetails";
 import booksData from "../data/books.json";
 import "./App.css";
 
@@ -38,7 +40,7 @@ export default function App() {
     }));
   };
 
-  const [books, setBooks] = useState(loadBooks);
+  const [books, setBooks] = useState(() => loadBooks());
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({ title: "", author: "", url: "" });
   const [editIndex, setEditIndex] = useState(null);
@@ -112,91 +114,87 @@ const [loans, setLoans] = useState([]);
     return true;
   });
 
-  return (
+    const CatalogPage = () => (
     <>
       <header>
         <h1>Book Catalog</h1>
       </header>
+
       <div className="view-toggle-container">
         <button
           className="view-toggle-btn"
-          onClick={()=> setView((v) => (v === "books" ? "loans" : "books"))}
+          onClick={() => setView((v) => (v === "books" ? "loans" : "books"))}
         >
           {view === "books" ? "Go to Loan Manager" : "Back to Book List"}
-          </button>
+        </button>
       </div>
 
       {view === "books" ? (
-      <div className="catalog">
-        <div className="actions">
-          <NewButton
-            onClick={() => {
-              setFormData({ title: "", author: "", url: "" });
-              setEditIndex(null);
-              setIsModalOpen(true);
-            }}
-          />
-          <div className="action-buttons">
-            <button
-              className="action-btn update-btn"
-              onClick={handleEdit}
-              disabled={!hasSelection}
-            >
-              Update
-            </button>
-            <button
-              className="action-btn delete-btn"
-              onClick={handleDelete}
-              disabled={!hasSelection}
-            >
-              Delete
-            </button>
-          </div>
-
-          <div className="filters">
-            <div className="filter-group">
-              <label htmlFor="priceFilter">Filter by price</label>
-              <select
-                id="priceFilter"
-                value={priceFilter}
-                onChange={(e) => setPriceFilter(e.target.value)}
+        <div className="catalog">
+          <div className="actions">
+            <NewButton
+              onClick={() => {
+                setFormData({ title: "", author: "", url: "" });
+                setEditIndex(null);
+                setIsModalOpen(true);
+              }}
+            />
+            <div className="action-buttons">
+              <button
+                className="action-btn update-btn"
+                onClick={handleEdit}
+                disabled={!hasSelection}
               >
-                <option value="all">All</option>
-                <option value="lt10">Under $10</option>
-                <option value="btw10_20">$10–$20</option>
-                <option value="gt20">Over $20</option>
-              </select>
+                Update
+              </button>
+              <button
+                className="action-btn delete-btn"
+                onClick={handleDelete}
+                disabled={!hasSelection}
+              >
+                Delete
+              </button>
+            </div>
+
+            <div className="filters">
+              <div className="filter-group">
+                <label htmlFor="priceFilter">Filter by price</label>
+                <select
+                  id="priceFilter"
+                  value={priceFilter}
+                  onChange={(e) => setPriceFilter(e.target.value)}
+                >
+                  <option value="all">All</option>
+                  <option value="lt10">Under $10</option>
+                  <option value="btw10_20">$10–$20</option>
+                  <option value="gt20">Over $20</option>
+                </select>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="books-grid">
-          {filteredBooks.map((book, i) => (
-            <BookCard
-              key={i}
-              title={book.title}
-              author={book.author}
-              price={book.price}
-              image={book.url}
-              link={book.link}
-              selected={book.selected}
-              onClick={() => handleSelect(i)}
-              isOnLoan={loans.some((l) => l.bookIndex === i)} 
-            />
-          ))}
+          <div className="books-grid">
+            {filteredBooks.map((book, i) => (
+              <BookCard
+                key={i}
+                id={i}                      
+                title={book.title}
+                author={book.author}
+                price={book.price}
+                image={book.url}
+                selected={book.selected}
+                onClick={() => handleSelect(i)}
+                isOnLoan={loans.some((l) => l.bookIndex === i)}
+              />
+            ))}
+          </div>
         </div>
-      </div>
       ) : (
-      // Loan Manager View
-        <LoanManager 
-          books={books} 
-          loans={loans}
-          setLoans={setLoans}
-          />
+        <LoanManager books={books} loans={loans} setLoans={setLoans} />
       )}
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <h2>{editIndex !== null ? "Edit Book" : "Add New Book"}</h2>
+        <h2>{editIndex !== null ? "Edit Book" : "Add new book"}</h2>
         <form onSubmit={handleSubmit} className="book-form">
           <label>Title:</label>
           <input
@@ -213,11 +211,7 @@ const [loans, setLoans] = useState([]);
             required
           />
           <label>Cover URL:</label>
-          <input
-            name="url"
-            value={formData.url}
-            onChange={handleChange}
-          />
+          <input name="url" value={formData.url} onChange={handleChange} />
           <div className="form-submit">
             <button
               type="submit"
@@ -233,5 +227,14 @@ const [loans, setLoans] = useState([]);
         <p>&copy; Sharleen Wang 2025</p>
       </footer>
     </>
+  );
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<CatalogPage />} />
+        <Route path="/book/:id" element={<BookDetails books={books} />} />
+      </Routes>
+    </BrowserRouter>
   );
 }

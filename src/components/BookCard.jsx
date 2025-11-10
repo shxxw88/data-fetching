@@ -1,11 +1,8 @@
-import { useState } from "react";
-
 function BookCard({ 
+  id,
   title, 
   price, 
   image, 
-  link, 
-  author, 
   selected, 
   onClick,
   isOnLoan
@@ -14,19 +11,16 @@ function BookCard({
     <div className={`book-card ${selected ? "selected" : ""}`} onClick={onClick}>
       {isOnLoan && <div className="loan-badge">On Loan</div>}
       {image && <img src={image} alt={`Cover of ${title}`} />}
-    
+
       <div className="book-details">
         <div className="book-title">{title}</div>
         <div className="book-price">{price || "N/A"}</div>
-
         <a
-          href={link}
-          target="_blank"
-          rel="noreferrer"
+          href={`/book/${id}`}
           className="book-link"
-          onClick={(e) => e.stopPropagation()} /* don't toggle when clicking link */
+          onClick={(e) => e.stopPropagation()} /* prevent selection toggle */
         >
-          Learn more
+          View details
         </a>
       </div>
     </div>
@@ -34,4 +28,3 @@ function BookCard({
 }
 
 export default BookCard;
-

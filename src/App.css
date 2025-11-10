@@ -1,0 +1,412 @@
+.catalog {
+  display: grid;
+  grid-template-columns: 225px 1fr; 
+  gap: 1.5rem;
+  margin-top: 2rem;
+  align-items: start; 
+}
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+  gap: 1.5rem;
+  align-items: stretch; 
+  justify-content: center;
+}
+
+.book-card {
+  border: 2px solid #000000;
+  border-radius: 8px;
+  padding-top: 0.5rem;
+  width: 225px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  position: relative;
+}
+
+.book-card.selected {
+  border: 3px solid #f880ce;
+}
+
+.book-details {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  border-top: 2px solid #000000;
+}
+
+.book-price {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  font-size: 16px;
+}
+
+.book-title {
+  flex: 1;
+  padding: 1rem;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.book-link {
+  display: block;
+  background: #000000;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0.6rem;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.book-link:hover {
+  background: #b7e857;
+  color: black;
+  border-radius: 0;
+}
+
+.new-button {
+  width: 225px;
+  border: 2px dashed #909090;
+  border-radius: 8px;
+  background-color: #f6f6f6;
+  font-family: "Roboto Mono", sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 470px;
+}
+
+.new-button:hover {
+  background-color: #b7e857;
+  cursor: pointer;
+}
+
+.new-button .plus {
+  font-size: 4rem;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+  color: #606060;
+}
+
+.new-button .label {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #606060;
+}
+
+.remove-button {
+  padding: 0.5rem;
+  border: none;
+  color: #000;
+  background: #ffd0ef;
+  border-radius: 0 0 6px 6px;
+  font-size: 14px;
+  font-family: roboto mono, sans-serif;
+}
+
+.remove-button:hover {
+  background: #f880ce;;
+  cursor: pointer;
+}
+
+
+
+/* Modal styles */
+.modal-content h2{
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.modal-backdrop {
+  position: fixed;
+  background: rgb(0, 0, 0, 0.5);
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  min-width: 300px;
+  max-width: 500px;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.75rem;
+  border: none;
+  background: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.book-form {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 0.8rem ;
+  align-items: center;
+}
+
+.book-form label {
+  text-align: left;
+  font-weight: 600;
+}
+
+.book-form input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.book-form button {
+  font-family: roboto mono, sans-serif;
+  background: #1e1e1e;
+  color: white;
+  padding: 0.6rem 2rem;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.book-form button:hover {
+  background: #b7e857;
+  color: black;
+}
+
+.book-form input:focus {
+  outline: none;
+  border-color:#b7e857;
+  box-shadow: 0 0 0 1px #b7e857;
+}
+
+.form-submit {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* Action buttons container */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  width: 225px;
+  font-family: "Roboto Mono", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 0.75rem;
+  border-radius: 8px;
+  border: 2px solid #000;
+  background: #fff;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.update-btn {
+  border-color: #44cbfc;
+  background: #a5d5f8;
+}
+.update-btn:hover {
+  background: #44cbfc;
+  color: #000;
+}
+
+.delete-btn {
+  background: #fedcf3;
+  border-color: #f880ce;
+}
+
+.delete-btn:hover {
+  background: #f880ce;
+  color: #000;
+}
+
+/* Filter block */
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.filter-group {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.4rem;
+}
+
+.filter-group label {
+  font-weight: 600;
+}
+
+.filter-group select {
+  padding: 0.5rem;
+  border: 2px solid #000;
+  border-radius: 8px;
+  font-family: "Roboto Mono", sans-serif;
+  background: #fff;
+  cursor: pointer;
+}
+.filter-group select:focus {
+  outline: none;
+}
+
+/* View toggle button */
+.view-toggle-container {
+  display: flex;
+  justify-content: flex-start;
+  margin: 1.25rem 0;
+}
+
+.view-toggle-btn {
+  width: 225px;
+  font-family: "Roboto Mono", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 0.75rem;
+  border: 2px solid #000;
+  border-radius: 8px;
+  background: #fff;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.view-toggle-btn:hover {
+  background: #d2d2d2;
+}
+
+/* Loan Manager styles */
+.loan-manager {
+  padding: 1.5rem;
+}
+
+.loan-form {
+  width: 100%;
+  max-width: 500px;            /* controls total width */
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 0.8rem 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 2px solid #000;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  background: #fff;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.loan-field {
+  display: contents; 
+}
+
+.loan-form label {
+  font-weight: 600;
+  text-align: left;
+}
+
+.loan-form input,
+.loan-form select {
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: "Roboto Mono", sans-serif;
+  background: #fff;
+  box-sizing: border-box;
+  margin-right: 4px;
+}
+
+
+.loan-field input:focus{
+    outline: none;
+  border-color:#b7e857;
+  box-shadow: 0 0 0 1px #b7e857;
+}
+
+
+.loan-empty {
+  border: 2px solid #000;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #fedcf3;
+  font-family: "Roboto Mono", sans-serif;
+  font-weight: 600;
+}
+
+.loan-items {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.loan-item {
+  border: 2px solid #000;
+  border-radius: 8px;
+  padding: 1rem;
+  background: #fff;
+}
+
+.loan-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #fedcf3;
+  border: 2px solid #f880ce;
+  color: #000;
+  font-family: "Roboto Mono", sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  z-index: 2;
+}
+
+.create-loan-btn {
+  width: 100%;
+  max-width: 200px;
+  margin-top: 0.8rem;
+  padding: 0.6rem 1rem;
+  font-family: "Roboto Mono", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #000;
+  background: #fff;
+  border: 2px solid #000;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.create-loan-btn:hover {
+  background: #b7e857;
+  color: #000;
+  transform: translateY(-1px);
+}
